@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named PPCA_RSICV
+# Target rules for targets named code
 
 # Build rule for target.
-PPCA_RSICV: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 PPCA_RSICV
-.PHONY : PPCA_RSICV
+code: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 code
+.PHONY : code
 
 # fast build rule for target.
-PPCA_RSICV/fast:
-	$(MAKE) -f CMakeFiles/PPCA_RSICV.dir/build.make CMakeFiles/PPCA_RSICV.dir/build
-.PHONY : PPCA_RSICV/fast
+code/fast:
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/build
+.PHONY : code/fast
 
 main.o: main.cpp.o
 
@@ -129,7 +129,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/PPCA_RSICV.dir/build.make CMakeFiles/PPCA_RSICV.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -138,7 +138,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/PPCA_RSICV.dir/build.make CMakeFiles/PPCA_RSICV.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -147,7 +147,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/PPCA_RSICV.dir/build.make CMakeFiles/PPCA_RSICV.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/code.dir/build.make CMakeFiles/code.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -158,7 +158,7 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... PPCA_RSICV"
+	@echo "... code"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
