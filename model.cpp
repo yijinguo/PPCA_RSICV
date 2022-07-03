@@ -1,3 +1,5 @@
+//逐行输出指令解析，用于debug
+
 #include <iostream>
 
 class CPU{

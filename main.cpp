@@ -217,10 +217,10 @@ private:
     SingleCommand cmd_after_issue;
     ReservationStations RS_from_rs_to_ex;
     ReorderBuffer ROB_from_rob_to_commit;
-    Queue<Code, 50> instruction_queue;
-    Queue<ReorderBuffer, 50> ROB_queue;
-    Queue<ReservationStations, 50> RS_queue;
-    Queue<ReservationStations, 50> SLB_queue;
+    Queue<Code, 10> instruction_queue;
+    Queue<ReorderBuffer, 10> ROB_queue;
+    Queue<ReservationStations, 10> RS_queue;
+    Queue<ReservationStations, 10> SLB_queue;
     static uint get_opcode(uint cmd) { return cmd & (uint) 0x0000007f; }
     static uint get_funct3(uint cmd) { return (cmd & (uint) 0x00007000) >> 12; }
     static uint get_funct7(uint cmd) { return (cmd & (uint) 0xff000000) >> 25; }
@@ -321,7 +321,6 @@ public:
             run_issue();
             run_commit();
             clock++;
-            //todo
             //用于debug
             //if (clock == 1000) break;
         }
@@ -726,7 +725,6 @@ private:
 
     void run_commit(){
         if (code_from_rob_to_commit.code != 0x00000000) {
-            //todo
             //用于debug
             //std::cout << code_from_rob_to_commit.code << '\n';
             ReorderBuffer t = ROB_from_rob_to_commit;
@@ -1153,7 +1151,7 @@ private:
 
 int main() {
     //freopen("sample.data", "r", stdin);
-    //freopen("../testcases/magic.data", "r", stdin);
+    //freopen("../testcases/statement_test.data", "r", stdin);
     //freopen("gyj.out", "w", stdout);
     CPU cpu;
     cpu.scan();
