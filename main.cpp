@@ -217,10 +217,10 @@ private:
     SingleCommand cmd_after_issue;
     ReservationStations RS_from_rs_to_ex;
     ReorderBuffer ROB_from_rob_to_commit;
-    Queue<Code, 5> instruction_queue;
-    Queue<ReorderBuffer, 5> ROB_queue;
-    Queue<ReservationStations, 5> RS_queue;
-    Queue<ReservationStations, 5> SLB_queue;
+    Queue<Code, 50> instruction_queue;
+    Queue<ReorderBuffer, 50> ROB_queue;
+    Queue<ReservationStations, 50> RS_queue;
+    Queue<ReservationStations, 50> SLB_queue;
     static uint get_opcode(uint cmd) { return cmd & (uint) 0x0000007f; }
     static uint get_funct3(uint cmd) { return (cmd & (uint) 0x00007000) >> 12; }
     static uint get_funct7(uint cmd) { return (cmd & (uint) 0xff000000) >> 25; }
@@ -1140,7 +1140,7 @@ private:
 
 int main() {
     //freopen("sample.data", "r", stdin);
-    //freopen("../testcases/gcd.data", "r", stdin);
+    //freopen("../testcases/magic.data", "r", stdin);
     //freopen("gyj.out", "w", stdout);
     CPU cpu;
     cpu.scan();
