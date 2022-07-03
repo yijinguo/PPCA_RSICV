@@ -741,10 +741,17 @@ private:
                     Reg.PC = code_from_rob_to_commit.pc + uint(4);
                     break;
                 case 2:
+                    if (ROB_queue.empty() || ROB_queue[0].code.pc != t.pcvalue) {
+                        clear_newPC();
+                        fetchPC = t.pcvalue;
+                    }
+                    Reg.PC = t.pcvalue;
+                    /*
                     clear_newPC();
                     Reg.PC = t.pcvalue;
                     fetchPC = Reg.PC;
                     stop = false;
+                     */
                     break;
                 case 3:
                     if (t.destination != 0)
@@ -752,7 +759,6 @@ private:
                     clear_newPC();
                     Reg.PC = t.pcvalue;
                     fetchPC = Reg.PC;
-                    stop = false;
                     break;
                 default:
                     break;
@@ -772,6 +778,7 @@ private:
     }
 
     void clear_newPC() {
+        stop = false;
         while (!SLB_queue.empty() && (SLB_queue[0].op == SB || SLB_queue[0].op == SH || SLB_queue[0].op == SW) && SLB_queue[0].only_sl != 3) {
             //跳转或程序终止后，完成SLBuffer的操作
             ReservationStations sl = SLB_queue[0];
@@ -886,6 +893,11 @@ private:
         return singleCmd;
     }
 
+    void branch_prediction() {
+        instruction_queue.clear();
+        fetchPC = code_from_issue_to_rob.pc + cmd_after_issue.imm;
+    }
+
     ReorderBuffer from_issue_to_rob(){
         ReorderBuffer res;
         if (code_from_issue_to_rob.code != 0x00000000) {
@@ -905,7 +917,8 @@ private:
                 case BLTU:
                 case BNE:
                     res.destType = 2;
-                    stop = true;
+                    branch_prediction();
+                    //stop = true;
                     break;
                 case JAL:
                 case JALR:
