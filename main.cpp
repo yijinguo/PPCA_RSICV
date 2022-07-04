@@ -300,6 +300,9 @@ private:
         return ans;
     }
 
+    float times = 0;
+    float wrong = 0;
+
 public:
 
     void scan(){ mem.initialize(std::cin); }
@@ -312,6 +315,7 @@ public:
             if(code_from_rob_to_commit.code == 0x0ff00513){
                 clear_newPC();
                 std::cout << (Reg[10] & 255u) << '\n';
+                //std::cout << wrong / times;
                 return;
             }
             run_slbuffer();
@@ -740,6 +744,7 @@ private:
                     break;
                 case 2:
                     if (ROB_queue.empty() || ROB_queue[0].code.pc != t.pcvalue) {
+                        wrong++;
                         clear_newPC();
                         fetchPC = t.pcvalue;
                     }
@@ -892,6 +897,7 @@ private:
     }
 
     void branch_prediction() {
+        times++;
         instruction_queue.clear();
         fetchPC = code_from_issue_to_rob.pc + cmd_after_issue.imm;
     }
@@ -916,7 +922,7 @@ private:
                 case BNE:
                     res.destType = 2;
                     branch_prediction();
-                    //stop = true;
+                    //stop = true
                     break;
                 case JAL:
                 case JALR:
@@ -1151,7 +1157,7 @@ private:
 
 int main() {
     //freopen("sample.data", "r", stdin);
-    //freopen("../testcases/statement_test.data", "r", stdin);
+    freopen("../testcases/statement_test.data", "r", stdin);
     //freopen("gyj.out", "w", stdout);
     CPU cpu;
     cpu.scan();
